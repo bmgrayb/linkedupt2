@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Dashboard LinkedU Student</title>
+        <link href="css/style.css" rel="stylesheet"/>
+        <script>
+            function popup(){
+                alert("Thanks for schedulding an appointment! \n An email has been sent.");
+            }
+        </script>
+    </h:head>
+    <h:body id="dashboard">
+        <div id="nav">
+            <ul class="nav">
+                <li style="padding-top: 13px;"><a href="index.xhtml"><img src="../images/u.png" alt="LinkedU Logo"/></a></li>
+                <li style="padding-top: 13px;">
+                    <h:form id="search">
+                     <a href="search.xhtml"><img src="../images/search.png" alt="Search"/></a>
+                 </h:form>                  
+                </li>
+            </ul>
+        </div>
+        
+        <div id="profile">
+            <div class="row">
+                <div class="col66" style="padding: 20px;">
+            
+                        <img src="images/skrillex.jpg" alt="Skrillex" class="dash-pic"/>
+                        <div style="margin-left: 220px;">
+                        <h1>
+                            <h:outputText id="firstName" escape="false" value="#{studentController.theUserModel.firstName}"/>&nbsp;                       
+                            <h:outputText id="lastName" escape="false" value="#{studentController.theUserModel.lastName}"/>  
+                        </h1> 
+                            <p>High School: <h:outputText id="highSchool" escape="false" value="#{studentController.theUserModel.highSchool}"/></p>
+                            <p>Year: <h:outputText id="year" escape="false" value="#{studentController.theUserModel.dashYear}"/></p>
+                        <p>GPA: <h:outputText id="gpa" escape="false" value="#{studentController.theUserModel.gpa}" /></p>
+                        <p>Interested Majors: <h:outputText id="m" escape="false" value="#{studentController.theUserModel.majors}" /></p>
+                </div>
+    
+                </div>
+                <div class="col33">
+                    <h2>Mixtape</h2>
+                    <h:outputText value="#{studentController.url}"/>         
+                    <iframe src="#{studentController.url}" frameborder="0"></iframe>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col66">
+
+                    <div class="profile-section">
+                        <h2>Summary</h2>
+                        <p><h:outputText id="essay" escape="false" value="#{studentController.theUserModel.essay}" /></p>                          
+                    </div>
+                    
+                    <div class="profile-section">
+                        <h2>Test Scores</h2>
+                        <h3>ACT: <h:outputText id="act" escape="false" value="#{studentController.theUserModel.ACT}" /></h3>
+                        <h3>PSAT: <h:outputText id="psat" escape="false" value="#{studentController.theUserModel.PSAT}" /></h3>
+                        <h3>NMSQT: <h:outputText id="nmsqt" escape="false" value="#{studentController.theUserModel.NMSQT}" /></h3>
+                    </div>
+                    
+                    <div class="profile-section">
+                        <h2>AP Courses Taken</h2>
+                        <h:outputText id="ap" escape="false" value="#{studentController.theUserModel.apCourse}" />
+                    </div>
+                    
+                </div>
+                <div class="col33">
+                    <h2>Featured University</h2><br/>
+                    <h:form>
+                        <h3>Official Name: <h:outputText id="name" escape="false" value="#{studentController.featured.officalName}"/></h3>
+                        <h3>Location: <h:outputText id="loc" escape="false" value="#{studentController.featured.city} #{studentController.featured.stAbbr}"/></h3>
+                        <h3>Enrollment: <h:outputText id="enroll" escape="false" value="#{studentController.featured.enrollment}"/></h3>
+                        <p:poll interval="5" listener="#{studentController.changeFeatured()}" update="name loc enroll" />
+                        <h:commandButton action="apply.xhtml" value="Apply Now!"/>
+                    </h:form>
+                    
+                    <br/><br/>
+                    
+                    <h2>Make An Appointment!</h2>
+                          <h:form id="appointment">
+                            
+                            <h:selectOneMenu value="#{appointmentController.theModel.universityID}" class="field-drop">
+                                <f:selectItem itemValue="100" itemLabel="MIT" />
+                                <f:selectItem itemValue="101" itemLabel="Illinois State University" />
+                                <f:selectItem itemValue="102" itemLabel="University of Illinois" />
+                                <f:selectItem itemValue="103" itemLabel="Stanford University" />
+                                <f:selectItem itemValue="104" itemLabel="Harvard University" />
+                            </h:selectOneMenu><br/>
+                            <p:growl id="msgs" showDetail="true" />
+ 
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:outputLabel for="popup" value="Date: " />
+                                    <p:calendar id="popup" value="#{appointmentController.date}" />
+
+                                </h:panelGrid>
+
+                                <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+                                    <p:panelGrid id="display" columns="2" columnClasses="label,value">
+
+                                        <h:outputText value="Date:" />
+                                        <h:outputText value="#{appointmentController.date}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+
+                                    </p:panelGrid>
+                                </p:dialog>
+                            <p:commandButton value="Submit" update="msgs" onclick="popup()" action="#{appointmentController.addAppointment()}" actionListener="#{appointmentController.setStudent}" icon="ui-icon-check" styleClass="join-button">
+                                <f:attribute name="stuid" value="#{studentController.theUserModel.studentID}" />
+                            </p:commandButton>
+
+                        </h:form>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
+

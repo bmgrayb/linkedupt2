@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <head>
+        <title>Result Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="css/style.css" rel="stylesheet"/>
+        <style>
+            table tbody tr {
+                border-bottom: 1px solid #000;
+                margin: 10px;
+            }
+        </style>
+    </head>
+    <h:body id="results">
+        <!-- START NAV -->
+        <div id="nav">
+            <ul class="nav">
+                <li style="padding-top: 13px;"><a href="index.xhtml"><img src="../images/u.png" alt="LinkedU Logo"/></a></li>
+            </ul>
+        </div>
+        <!-- END NAV -->
+        
+        <div class="results">
+        <h1 style="text-align: center; margin: 20px;"><h:outputText value="Resulting Students" rendered="#{searchController.stu != null}" /></h1>
+        
+       <h:dataTable id="resultTable" value="#{searchController.stu}"  var="aRow"  rendered="#{searchController.stu !=null}" cellpadding="2" cellspacing="0">
+            <h:column class="border">
+                <f:facet name="header"><h:outputText value="Name" /></f:facet>
+                <h:outputText value="#{aRow.firstName} #{aRow.lastName}" style="margin: 10px;" />
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header"><h:outputText value="High Schools" /></f:facet>
+                <h:outputText value="#{aRow.highSchool}" style="margin: 10px;"/>
+            </h:column>
+           
+           <h:column>
+                <f:facet name="header"><h:outputText value="View Student" /></f:facet>
+                <h:form>
+                    <h:commandButton  value="View" action="student.xhtml" actionListener="#{studentResultController.setID}" style="background-color: #fff; border: none; text-decoration: underline; color: #287bbc;">
+                        <f:attribute name="username" value="#{aRow.username}" />
+                    </h:commandButton>
+                </h:form>
+                <!--<a href="student.xhtml" ><h:commandButton value="View" action="#{studentResultController.setStuID(aRow.studentID)}"/></a>-->
+           </h:column>
+
+        </h:dataTable>
+        
+        <br/>
+        
+        <h1><h:outputText value="Resulting Universities" rendered="#{searchController.univ != null}" /></h1>
+        
+        <h:dataTable id="univTable" value="#{searchController.univ}" var="row"  rendered="#{searchController.univ != null}" cellpadding="2" cellspacing="0">
+            <h:column>
+                <f:facet name="header"><h:outputText value="University" /></f:facet>
+                <h:outputText value="#{row.officalName}" style="margin: 10px;" />
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header"><h:outputText value="State" /></f:facet>
+                <h:outputText value="#{row.stAbbr}" style="margin: 10px;" />
+            </h:column>
+        </h:dataTable>
+        
+        <h:form style="text-align: center;">
+            <br/>
+            <h:commandButton id="submitID" value="Back" action="search.xhtml" class="join-button"/>
+        </h:form>
+        </div>
+    </h:body>
+</html>

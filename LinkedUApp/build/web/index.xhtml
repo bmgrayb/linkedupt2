@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+        <title>LinkedU</title>
+        <link href="css/style.css" rel="stylesheet"/>
+    </h:head>
+    <h:body id="home">
+        <div id="nav">
+            <ul class="nav">
+                <li style="padding-top: 13px;"><a href="index.xhtml"><img src="../images/u.png" alt="LinkedU Logo"/></a></li>
+                <li style="padding-top: 13px;">
+                 <h:form id="search">
+                     <a href="search.xhtml"><img src="../images/search.png" alt="Search"/></a>
+                 </h:form>
+                </li>
+            </ul>
+        </div>
+        <div id="outer-wrapper">
+            <div id="signin">
+                <img src="images/linkedu.png"/>            
+                <h:form id="loginForm">
+                   <h:inputText id="login" class="main-field" value="#{appUserController.theModel.username}"></h:inputText><br/>
+                   <p:watermark for="login" value="User Name" />
+                   <h:inputSecret id="pw" class="main-field" value="#{appUserController.theModel.password}"></h:inputSecret><br/>
+                   <p:watermark for="pw" value="Password" />
+                   <h:commandButton id="loginbutton" value="Login Student" class="main-login-button" action="#{appUserController.login()}" actionListener="#{studentController.setStudent}">
+                       <f:attribute name="username" value="#{appUserController.theModel.username}" />
+                   </h:commandButton> 
+                   <h:commandButton id="recbutton" value="Login Recruiter" class="main-login-button" action="#{appUserController.login()}" actionListener="#{recruiterController.setRecruiter}">
+                       <f:attribute name="username" value="#{appUserController.theModel.username}" />
+                   </h:commandButton>
+               </h:form>
+               <p>High school student? <a href="join.xhtml">Join now</a></p>
+            </div>
+        </div>
+    <div class="site-footer">
+        <p>College recruiter? <a href="recruit.xhtml">Start recruiting</a></p>
+    </div>
+    </h:body>
+</html>
+

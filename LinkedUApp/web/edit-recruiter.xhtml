@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Dashboard LinkedU Recruiter</title>
+        <link href="css/style.css" rel="stylesheet"/>
+    </h:head>
+    <h:body id="dashboard">
+        <!-- START NAVIGATION -->
+        <div id="nav">
+            <ul class="nav">
+                <li style="padding-top: 13px;"><a href="index.xhtml"><img src="../images/u.png" alt="LinkedU Logo"/></a></li>
+                <li style="padding-top: 13px;">
+                    <h:form id="search">
+                    <h:inputText id="search" value="#{userController.theUserModel.firstName}" class="join-field"></h:inputText>
+                    </h:form>                    
+                </li>
+                <li><img src="../images/search.png" alt="Search"/></li>
+                <li style="padding-top: 10px;"><h:commandButton id="editStudentButton" value="Edit Profile" action="#{recruiterController.update()}" class="edit-button"/></li>
+            </ul>
+        </div>
+        <!-- END NAVIGATION -->
+        
+        
+        <!-- START PROFILE -->
+        <div id="profile-recruiter">
+            <div class="row">
+                <div class="col66" style="padding: 20px;">
+                    <h:form>
+                        <img src="images/skrillex.jpg" alt="Skrillex" class="dash-pic"/>
+                        <div style="margin-left: 220px;">
+                        <h1>
+                            <h:inputText id="firstName" value="#{recruiterController.theModel.firstName}"/>&nbsp;                       
+                            <h:inputText id="lastName" value="#{recruiterController.theModel.lastName}"/>
+                        </h1> 
+                        <p>Summary:</p>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col66">
+                    <h:form>
+                    <div class="profile-section">
+                        <h2>University</h2>
+                    </div>
+                        
+                    <div class="profile-section">
+                        <h:inputText id="email" value="#{recruiterController.theModel.email}"/>
+                    </div>
+                    
+                    <div class="profile-section">
+                        <h2>Make An Appointment!</h2>
+                 
+                    </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
