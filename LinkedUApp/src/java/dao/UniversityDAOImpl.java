@@ -23,10 +23,10 @@ public class UniversityDAOImpl implements UniversityDAO{
     public ArrayList<UniversityModel> getAllUniversities() {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
-        String query = "SELECT * FROM linkedu.University";
+        String query = "SELECT * FROM linkedu.University order by stabbr, officialname";
         
         ArrayList<UniversityModel> u = new ArrayList<UniversityModel>();
         
@@ -90,7 +90,7 @@ public class UniversityDAOImpl implements UniversityDAO{
     public UniversityModel getUniversityByID(int id) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.University where universityid = " +id;
@@ -154,7 +154,7 @@ public class UniversityDAOImpl implements UniversityDAO{
     public ArrayList<UniversityModel> getUniversitiesEnrollmentGreater(int enrollment) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.University where enrollment > " + enrollment;
@@ -221,7 +221,7 @@ public class UniversityDAOImpl implements UniversityDAO{
     public ArrayList<UniversityModel> getUniversitiesEnrollmentSmaller(int enrollment) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.University where enrollment < " + enrollment;
@@ -288,7 +288,7 @@ public class UniversityDAOImpl implements UniversityDAO{
     public ArrayList<UniversityModel> getShowcasedUniversities(){
         
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.University where isfeatured = true";
@@ -355,7 +355,7 @@ public class UniversityDAOImpl implements UniversityDAO{
     public int updateUniversity(UniversityModel univ){
         
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         String insertString = "";
         
@@ -392,7 +392,7 @@ public class UniversityDAOImpl implements UniversityDAO{
     public int addUniversity(UniversityModel univ) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         String insertString = "";
         
@@ -431,7 +431,7 @@ public class UniversityDAOImpl implements UniversityDAO{
     public UniversityModel getUniversityByUsername(String un) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.University where username = '" +un + "'";
@@ -495,10 +495,10 @@ public class UniversityDAOImpl implements UniversityDAO{
     public ArrayList<UniversityModel> getUniversitesByState(String state) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
-        String query = "SELECT * FROM linkedu.University where stabbr = '" + state + "'";
+        String query = "SELECT * FROM linkedu.University where stabbr = '" + state + "' order by stabbr, officialname";
         
         ArrayList<UniversityModel> u = new ArrayList<UniversityModel>();
         
@@ -562,10 +562,10 @@ public class UniversityDAOImpl implements UniversityDAO{
     public ArrayList<UniversityModel> getUniversitiesBetween(int lower, int higher) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
-        String query = "SELECT * FROM linkedu.University where enrollment between " + lower + " and " + higher; 
+        String query = "SELECT * FROM linkedu.University where enrollment between " + lower + " and " + higher + " order by stabbr, officialname"; 
         
         ArrayList<UniversityModel> u = new ArrayList<UniversityModel>();
         
@@ -629,10 +629,10 @@ public class UniversityDAOImpl implements UniversityDAO{
     public ArrayList<UniversityModel> getUniversitiesByStateAndRange(String state, int lower, int higher) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
-        String query = "SELECT * FROM linkedu.University where stabbr = '" + state + "'" + " and enrollment between " + lower + " and " + higher; 
+        String query = "SELECT * FROM linkedu.University where stabbr = '" + state + "'" + " and enrollment between " + lower + " and " + higher + " order by stabbr, officialname"; 
         
         ArrayList<UniversityModel> u = new ArrayList<UniversityModel>();
         

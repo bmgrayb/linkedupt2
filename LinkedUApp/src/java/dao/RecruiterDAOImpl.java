@@ -23,7 +23,7 @@ public class RecruiterDAOImpl implements RecruiterDAO{
     public ArrayList<RecruiterModel> getAllRecruiters() {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.Recruiter";
@@ -80,7 +80,7 @@ public class RecruiterDAOImpl implements RecruiterDAO{
     public RecruiterModel getRecruiterByID(int id) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.Recruiter where recruiterid = " +id;
@@ -135,7 +135,7 @@ public class RecruiterDAOImpl implements RecruiterDAO{
     public int updateRecruiter(RecruiterModel rec){
         
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         String insertString = "";
         
@@ -143,13 +143,11 @@ public class RecruiterDAOImpl implements RecruiterDAO{
         
         try{
             Statement stmt = DBConn.createStatement();
-            insertString = "Update linkedu.Recruiter "
-            + "set password = '" + rec.getPassword() + "', "
-            + "set university = " + rec.getUniversityID() + ", "
-            + "set firstname = '" + rec.getFirstName() + "', "
-            + "set lastname = '" + rec.getLastName() + "', "
-            + "set email = '" + rec.getEmail() + "', "
-            + "set ispaidservice = " + rec.isIsPaidService()
+            insertString = "Update linkedu.Recruiter set "
+            + "universityid = " + rec.getUniversityID() + ", "
+            + "firstname = '" + rec.getFirstName() + "', "
+            + "lastname = '" + rec.getLastName() + "', "
+            + "email = '" + rec.getEmail() + "' "
             + "where username = '" + rec.getUsername() + "'";
             
             row = stmt.executeUpdate(insertString);
@@ -168,7 +166,7 @@ public class RecruiterDAOImpl implements RecruiterDAO{
     public int addRecruiter(RecruiterModel rec) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         String insertString = "";
         
@@ -203,7 +201,7 @@ public class RecruiterDAOImpl implements RecruiterDAO{
     public RecruiterModel getRecruiterByUsername(String un) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.Recruiter where username = '" +un + "'";

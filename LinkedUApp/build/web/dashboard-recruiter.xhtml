@@ -43,21 +43,19 @@
                             <p>Email: <h:outputText id="email" escape="false" value="#{recruiterController.theModel.email}"/></p>
                             <p>University: <h:outputText id="highSchool" escape="false" value="#{recruiterController.getUni()}"/></p>
                             <p>Email: <h:outputText id="year" escape="false" value="#{recruiterController.theModel.email}"/></p>
-                        </div>
-                    </h:form>
-    
-                            <!-- insert here -->
-                            <div class="row">
- 
-                    <h:form>
-                    <div style="margin: 20px;">
+                        
                         <h2>University Info</h2>
                         <p>University: <h:outputText id="universitySummary" escape="false" value="#{recruiterController.univ.officalName}"/></p>
                         <p>Location <h:outputText id="loc" escape="false" value="#{recruiterController.univ.city} #{recruiterController.univ.stAbbr}"/></p>
                         <p>Enrollment: <h:outputText id="enroll" escape="false" value="#{recruiterController.univ.enrollment}"/></p>
-                    </div>
+                        <h:commandButton id="editStudentButton" value="Edit" action="edit-recruiter.xhtml" class="edit-button"/>
+                        </div>
                     </h:form>
-                                <hr/>
+    
+                            <!-- insert here -->
+                    <div class="row">
+ 
+                    <hr/>
                     
                     <div style="margin: 20px;">
                         <h2>Make An Appointment!</h2>

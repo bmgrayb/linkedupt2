@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Edit LinkedU Student</title>
         <link href="css/style.css" rel="stylesheet"/>
@@ -12,11 +13,9 @@
                 <li style="padding-top: 13px;"><a href="index.xhtml"><img src="../images/u.png" alt="LinkedU Logo"/></a></li>
                 <li style="padding-top: 13px;">
                     <h:form id="search">
-                    <h:inputText id="search" value="#{userController.theUserModel.firstName}" class="join-field"/>
-                    </h:form>                    
+                     <a href="search.xhtml"><img src="../images/search.png" alt="Search"/></a>
+                 </h:form>                  
                 </li>
-                <li><img src="../images/search.png" alt="Search"/></li>
-                <li style="padding-top: 10px;"><h:commandButton id="editStudentButton" value="Save Profile" action="#{studentController.update()}" class="edit-button"/></li>
             </ul>
         </div>
         
@@ -27,63 +26,35 @@
                         <img src="images/skrillex.jpg" alt="Skrillex" class="dash-pic"/>
                         <div style="margin-left: 220px;">
                         <h:form>
-                        <h1>
-                            <h:inputText id="firstName" value="#{userController.theUserModel.firstName}"></h:inputText>                       
-                            <h:inputText id="lastName" value="#{userController.theUserModel.lastName}"></h:inputText>  
-                        </h1> 
-                            <p>High School: <h:inputText id="highSchool" value="#{userController.theUserModel.highSchool}"></h:inputText></p>
-                            <p>Year: <h:inputText id="year" value="#{userController.theUserModel.dashYear}"></h:inputText></p>
-                        <p>GPA: <h:inputText id="gpa" value="#{userController.theUserModel.gpa}"></h:inputText></p>
-                        <p>Interested Majors: <h:inputText id="majors" value="#{userController.theUserModel.majors}"></h:inputText></p>
-                        <p>Interested Universities: <h:inputText id="universities" value="#{userController.theUserModel.universities}"></h:inputText></p>
-                <!--        <p>Interested Majors: Computer Science, Human Resources, Arts Technology</p>   -->
+                        
+                            <p>First Name: <h:inputText id="firstName" value="#{studentController.fname}"></h:inputText> <br/>
+                                Last Name: <h:inputText id="lastName" value="#{studentController.lname}"></h:inputText>  </p>
+                        
+                            <p>High School: <h:selectOneMenu value="#{studentController.highschool}" class="field-drop">
+                            <f:selectItem itemValue="Bloomington High School" itemLabel="Bloomington High School" />
+                            <f:selectItem itemValue="Calvary Baptist High School" itemLabel="Calvary Baptist High School" />
+                            <f:selectItem itemValue="Central Catholic High School" itemLabel="Central Catholic High School" />
+                            <f:selectItem itemValue="Normal Community High School" itemLabel="Normal Community High School" />
+                            <f:selectItem itemValue="Normal Community West High School" itemLabel="Normal Community West High School" />
+                            <f:selectItem itemValue="University High School" itemLabel="University High School" />
+                        </h:selectOneMenu><br/><br/></p>
+                            <p>Year: <h:selectOneMenu value="#{studentController.year}" class="field-drop">
+                            <f:selectItem itemValue="1" itemLabel="Freshman" />
+                            <f:selectItem itemValue="2" itemLabel="Sophomore" />	   							
+                            <f:selectItem itemValue="3" itemLabel="Junior" />
+                            <f:selectItem itemValue="4" itemLabel="Senior" />	   							
+                        </h:selectOneMenu><br/><br/></p>
+                            <p>GPA: <h:inputText id="gpa" value="#{studentController.gpa}"></h:inputText></p>
+                        <p>Interested Majors: <h:inputText id="majors" value="#{studentController.majors}"></h:inputText></p>
+                        <p>AP Courses Taken: <h:inputText id="apCourses" value="#{studentController.ap}"></h:inputText></p>
+                        <p>Essays: <h:inputText id="essays" value="#{studentController.essay}"></h:inputText></p>
+                        <p>Mixtape URL: <h:inputText id="mix" value="#{studentController.url}"/></p>
+                        <h:commandButton id="editStudentButton" value="Save Profile" action="#{studentController.update()}" class="edit-button"/>
                         </h:form>
                 </div>
     
                 </div>
-                <div class="col33">
-                    <h2>Mixtape</h2>
-                    <iframe src="//www.youtube.com/embed/3QSjfIeZ_Yo?rel=0" frameborder="0"></iframe>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col66">
-
-                <!--    <div class="profile-section">
-                        <h:form>
-                        <h2>Summary</h2>
-                        <p><h:inputText id="summary" value="#{userController.theUserModel.essay}"></h:inputText></p>  
-                        </h:form>
-                    </div>  -->
-                    
-                    <div class="profile-section">
-                        <h:form>
-                        <h2>Test Scores</h2>
-                        <h3>ACT</h3>
-                        <p><h:inputText id="act" value="#{userController.theUserModel.ACT}"></h:inputText></p>
-                        <h3>SAT</h3>
-                        <p><h:inputText id="sat" value="#{userController.theUserModel.SAT}"></h:inputText></p>
-                        <h3>PSAT</h3>
-                        <p><h:inputText id="psat" value="#{userController.theUserModel.PSAT}"></h:inputText></p>
-                        <h3>NMSQT</h3>
-                        <p><h:inputText id="nmsqt" value="#{userController.theUserModel.NMSQT}"></h:inputText></p>
-                        </h:form>
-                    </div>
-                    
-                    <div class="profile-section">
-                        <h2>AP Courses Taken</h2>
-                        <p><h:inputText id="apCourses" value="#{userController.theUserModel.apCourse}"></h:inputText></p>
-                    </div>
-                    
-                    <div class="profile-section">
-                        <h2>College Essays</h2>
-                        <p><h:inputText id="essays" value="#{userController.theUserModel.essay}"></h:inputText></p>
-                    </div>
-                </div>
-                <div class="col33">
-                    <h2>My Universities</h2>
-                    <h3>Featured University</h3>
-                </div>
+                
             </div>
         </div>
     </h:body>

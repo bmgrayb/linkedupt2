@@ -22,10 +22,11 @@ public class AppUserDAOImpl implements AppUserDAO{
         boolean valid = false;
         
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
-        String query = "SELECT PASSWORD FROM LINKEDU.APPUSER WHERE USERNAME = '" + username + "'";
+        String query = "SELECT * FROM LINKEDU.APPUSER WHERE USERNAME = '" + username + "'";
+        System.out.println(query);
         String newPassword="";
         
         try{
@@ -48,8 +49,9 @@ public class AppUserDAOImpl implements AppUserDAO{
             System.err.println(e.getMessage());
         }
         
+        System.out.println("New Password: " + newPassword);
         
-        if(newPassword != null && password.equals(newPassword))
+       if(newPassword.equalsIgnoreCase(password))// if(newPassword != null && password.equals(newPassword))
             valid = true;
         
         return valid;
@@ -59,7 +61,7 @@ public class AppUserDAOImpl implements AppUserDAO{
     public int addUser(AppUserModel user) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         String insertString = "";
         
@@ -89,7 +91,7 @@ public class AppUserDAOImpl implements AppUserDAO{
         boolean valid = false;
         
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT usertype FROM LINKEDU.AppUser WHERE USERNAME = '" + username + "'";
@@ -123,7 +125,7 @@ public class AppUserDAOImpl implements AppUserDAO{
     public AppUserModel getUserByUsername(String un) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM LINKEDU.AppUser WHERE USERNAME = '" + un + "'";

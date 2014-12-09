@@ -39,12 +39,14 @@
                             <p>Year: <h:outputText id="year" escape="false" value="#{studentController.theUserModel.dashYear}"/></p>
                         <p>GPA: <h:outputText id="gpa" escape="false" value="#{studentController.theUserModel.gpa}" /></p>
                         <p>Interested Majors: <h:outputText id="m" escape="false" value="#{studentController.theUserModel.majors}" /></p>
+                        <h:form>
+                            <h:commandButton value="Edit" action="edit-student.xhtml"/>
+                        </h:form>
                 </div>
     
                 </div>
                 <div class="col33">
                     <h2>Mixtape</h2>
-                    <h:outputText value="#{studentController.url}"/>         
                     <iframe src="#{studentController.url}" frameborder="0"></iframe>
                 </div>
             </div>

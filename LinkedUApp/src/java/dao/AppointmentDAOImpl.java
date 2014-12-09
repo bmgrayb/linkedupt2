@@ -23,7 +23,7 @@ public class AppointmentDAOImpl implements AppointmentDAO{
     public ArrayList<AppointmentModel> getAllAppointments() {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.Appointment";
@@ -70,7 +70,7 @@ public class AppointmentDAOImpl implements AppointmentDAO{
     public ArrayList<AppointmentModel> getUniversityAppointments(int univID) {
         
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM LINKEDU.Appointment where universityid = " + univID;
@@ -116,7 +116,7 @@ public class AppointmentDAOImpl implements AppointmentDAO{
     public ArrayList<AppointmentModel> getStudentAppointments(int stuID) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM LINKEDU.Appointment where studentid = " + stuID;
@@ -163,7 +163,7 @@ public class AppointmentDAOImpl implements AppointmentDAO{
     public AppointmentModel getAppointment(int studentID, int universityID, Date date) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM LINKEDU.Appointment where studentID = " + studentID 
@@ -209,7 +209,7 @@ public class AppointmentDAOImpl implements AppointmentDAO{
     public int updateAppointment(AppointmentModel appt){
         
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         String insertString = "";
         
@@ -238,7 +238,7 @@ public class AppointmentDAOImpl implements AppointmentDAO{
     public int addAppointment(AppointmentModel appt) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         String insertString = "";
         

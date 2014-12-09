@@ -44,19 +44,25 @@ public class StudentController {
     private String youtube;
     private UniversityModel featured;
     private ArrayList<UniversityModel> all;
-    int index;
+    private int index;
     private String email;
+    private String fname,lname,highschool,majors,univs,ap, essay;
+    private int act, psat, nmsqt, sat, year;
+    private float gpa;
     
     public StudentController(){
         theUserModel = new StudentModel();
         all = new UniversityDAOImpl().getShowcasedUniversities();
         url = null;
         index = 0;
+        fname=lname=highschool=majors=univs=ap=essay = null;
+        act = psat = nmsqt = sat = year = -1;
+        gpa = 0;
     }
 
     public void setStudent(ActionEvent event){
         String un = (String)event.getComponent().getAttributes().get("username");
-        theUserModel = new StudentDAOImpl().getStudentByUsername(un);
+        setTheUserModel(new StudentDAOImpl().getStudentByUsername(un));
         //url = new MultimediaDAOImpl().getURLByID(stu.getStudentID()).getUrl();
     }
     
@@ -79,10 +85,10 @@ public class StudentController {
      */
     public String getResponse() {
         String str = "";
-        str += "Hello Student:\nUsername: " + theUserModel.getUsername();
-        str += "\nName: "+theUserModel.getFirstName() + " " + theUserModel.getLastName();
-        str += "\nEmail: "+theUserModel.getEmail() + "\nPassword: "+theUserModel.getPassword();
-        str += "\nPaid Service: " + theUserModel.getIsPaidService();
+        str += "Hello Student:\nUsername: " + getTheUserModel().getUsername();
+        str += "\nName: "+getTheUserModel().getFirstName() + " " + getTheUserModel().getLastName();
+        str += "\nEmail: "+getTheUserModel().getEmail() + "\nPassword: "+getTheUserModel().getPassword();
+        str += "\nPaid Service: " + getTheUserModel().getIsPaidService();
         response = str;
         return response;
     }
@@ -96,26 +102,20 @@ public class StudentController {
     
     public String addStudent(){
         StudentDAO aStudentDAO = new StudentDAOImpl();
-        int status = aStudentDAO.addStudent(theUserModel);
+        int status = aStudentDAO.addStudent(getTheUserModel());
         AppUserDAO aUserDAO= new AppUserDAOImpl();
         AppUserModel tempModel=new AppUserModel();
-        tempModel.setUsername(theUserModel.getUsername());
-        tempModel.setPassword(theUserModel.getPassword());
-/*<<<<<<< HEAD
-        tempModel.setUserType("student");
-        aUserDAO.addUser(tempModel);
-        if (status == 1)
-            return "dashboard.xhtml";
-=======*/
+        tempModel.setUsername(getTheUserModel().getUsername());
+        tempModel.setPassword(getTheUserModel().getPassword());
         tempModel.setUserType("Student");
         int other = aUserDAO.addUser(tempModel);
         
         MultimediaModel mm = new MultimediaModel();
         mm.setUrl(getYoutube());
-        mm.setStudentID(aStudentDAO.getStudentByUsername(theUserModel.getUsername()).getStudentID());
+        mm.setStudentID(aStudentDAO.getStudentByUsername(getTheUserModel().getUsername()).getStudentID());
         int mult = new MultimediaDAOImpl().addMultimedia(mm);
         if (status == 1 && other == 1 && mult == 1){
-            setTheUserModel(aStudentDAO.getStudentByUsername(theUserModel.getUsername()));
+            setTheUserModel(aStudentDAO.getStudentByUsername(getTheUserModel().getUsername()));
           return "dashboard.xhtml";  
         }
             
@@ -124,8 +124,35 @@ public class StudentController {
     
     public String update(){
         StudentDAO stuDAO = new StudentDAOImpl();
-        int status = stuDAO.updateStudent(theUserModel);
-        if(status == 1)
+        
+        System.out.println(fname + lname + year);
+        
+        if(fname != null && fname.length() > 0)
+            getTheUserModel().setFirstName(fname);
+        if(lname != null & lname.length() > 0)
+            getTheUserModel().setLastName(lname);
+        if(highschool != null)
+            getTheUserModel().setHighSchool(highschool);
+        if(year != -1)
+            getTheUserModel().setYear(getYear());
+        if(gpa != 0)
+            theUserModel.setGpa(gpa);
+        if(majors != null && majors.length() > 0) 
+            theUserModel.setMajors(majors);
+        if(ap != null && ap.length() > 0)
+            theUserModel.setApCourse(ap);
+        if(essay != null && essay.length() > 0)
+            theUserModel.setEssay(essay);
+        
+        MultimediaModel mm = new MultimediaModel();
+        mm.setUrl(url);
+        mm.setStudentID(theUserModel.getStudentID());
+        
+        int mult = new MultimediaDAOImpl().updateMultimedia(mm);
+        int status = stuDAO.updateStudent(getTheUserModel());
+        System.out.println("Mult: " +  mult);
+        System.out.println("Status: " + status);
+        if(status == 1 && mult == 1)
             return "dashboard.xhtml";
         else return "error.xhtml";
     }
@@ -133,7 +160,7 @@ public class StudentController {
     public void requestInfoFromStudent(){
         StudentModel student; RecruiterModel rec;
         StudentDAO stuDAO = new StudentDAOImpl();
-        student = stuDAO.getStudentByID(theUserModel.getStudentID());
+        student = stuDAO.getStudentByID(getTheUserModel().getStudentID());
         String stuEmail = student.getEmail();
         rec = new RecruiterDAOImpl().getRecruiterByID(100);
         //String recEmail = rec.getEmail();
@@ -148,10 +175,10 @@ public class StudentController {
         
         String subject = student.getFirstName()+"! We would like to know more about you!";
         
-        if(this.email == null)
-            this.email = "test@test.com";
+        if(this.getEmail() == null)
+            this.setEmail("test@test.com");
         
-        sendEmail(mailStr,stuEmail,email,subject);
+        sendEmail(mailStr,stuEmail, getEmail(),subject);
         
     }//end requestFromStudent
     
@@ -234,7 +261,7 @@ public class StudentController {
      */
     public String getUrl() {
         if(url == null){
-            url = new MultimediaDAOImpl().getURLByID(theUserModel.getStudentID()).getUrl();
+            url = new MultimediaDAOImpl().getURLByID(getTheUserModel().getStudentID()).getUrl();
         }
         return url;
     }
@@ -251,11 +278,11 @@ public class StudentController {
      */
     public UniversityModel getFeatured() {
         //int index = (int)Math.random()*all.size();
-        return all.get(index);
+        return getAll().get(getIndex());
     }
 
     public void changeFeatured(){
-        index = (index+1)%all.size();
+        setIndex((getIndex() + 1) % getAll().size());
     }
     
     /**
@@ -291,5 +318,215 @@ public class StudentController {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * @return the all
+     */
+    public ArrayList<UniversityModel> getAll() {
+        return all;
+    }
+
+    /**
+     * @param all the all to set
+     */
+    public void setAll(ArrayList<UniversityModel> all) {
+        this.all = all;
+    }
+
+    /**
+     * @return the index
+     */
+    public int getIndex() {
+        return index;
+    }
+
+    /**
+     * @param index the index to set
+     */
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    /**
+     * @return the fname
+     */
+    public String getFname() {
+        return fname;
+    }
+
+    /**
+     * @param fname the fname to set
+     */
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    /**
+     * @return the lname
+     */
+    public String getLname() {
+        return lname;
+    }
+
+    /**
+     * @param lname the lname to set
+     */
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    /**
+     * @return the highschool
+     */
+    public String getHighschool() {
+        return highschool;
+    }
+
+    /**
+     * @param highschool the highschool to set
+     */
+    public void setHighschool(String highschool) {
+        this.highschool = highschool;
+    }
+
+    /**
+     * @return the majors
+     */
+    public String getMajors() {
+        return majors;
+    }
+
+    /**
+     * @param majors the majors to set
+     */
+    public void setMajors(String majors) {
+        this.majors = majors;
+    }
+
+    /**
+     * @return the univs
+     */
+    public String getUnivs() {
+        return univs;
+    }
+
+    /**
+     * @param univs the univs to set
+     */
+    public void setUnivs(String univs) {
+        this.univs = univs;
+    }
+
+    /**
+     * @return the ap
+     */
+    public String getAp() {
+        return ap;
+    }
+
+    /**
+     * @param ap the ap to set
+     */
+    public void setAp(String ap) {
+        this.ap = ap;
+    }
+
+    /**
+     * @return the essay
+     */
+    public String getEssay() {
+        return essay;
+    }
+
+    /**
+     * @param essay the essay to set
+     */
+    public void setEssay(String essay) {
+        this.essay = essay;
+    }
+
+    /**
+     * @return the act
+     */
+    public int getAct() {
+        return act;
+    }
+
+    /**
+     * @param act the act to set
+     */
+    public void setAct(int act) {
+        this.act = act;
+    }
+
+    /**
+     * @return the psat
+     */
+    public int getPsat() {
+        return psat;
+    }
+
+    /**
+     * @param psat the psat to set
+     */
+    public void setPsat(int psat) {
+        this.psat = psat;
+    }
+
+    /**
+     * @return the nmsqt
+     */
+    public int getNmsqt() {
+        return nmsqt;
+    }
+
+    /**
+     * @param nmsqt the nmsqt to set
+     */
+    public void setNmsqt(int nmsqt) {
+        this.nmsqt = nmsqt;
+    }
+
+    /**
+     * @return the sat
+     */
+    public int getSat() {
+        return sat;
+    }
+
+    /**
+     * @param sat the sat to set
+     */
+    public void setSat(int sat) {
+        this.sat = sat;
+    }
+
+    /**
+     * @return the gpa
+     */
+    public float getGpa() {
+        return gpa;
+    }
+
+    /**
+     * @param gpa the gpa to set
+     */
+    public void setGpa(float gpa) {
+        this.gpa = gpa;
+    }
+
+    /**
+     * @return the year
+     */
+    public int getYear() {
+        return year;
+    }
+
+    /**
+     * @param year the year to set
+     */
+    public void setYear(int year) {
+        this.year = year;
     }
 }//end class

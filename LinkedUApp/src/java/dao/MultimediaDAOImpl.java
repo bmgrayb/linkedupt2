@@ -23,7 +23,7 @@ public class MultimediaDAOImpl implements MultimediaDAO{
     public ArrayList<MultimediaModel> getAllURL() {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.Multimedia";
@@ -74,7 +74,7 @@ public class MultimediaDAOImpl implements MultimediaDAO{
     public MultimediaModel getURLByID(int studentID) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM LINKEDU.Multimedia where studentID = " + studentID;
@@ -119,7 +119,7 @@ public class MultimediaDAOImpl implements MultimediaDAO{
     public int updateMultimedia(MultimediaModel mult){
         
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         String insertString = "";
         
@@ -127,10 +127,9 @@ public class MultimediaDAOImpl implements MultimediaDAO{
         
         try{
             Statement stmt = DBConn.createStatement();
-            insertString = "upate linkedu.Multimedia "
-            + "set url = '" + mult.getUrl() + "', "
-            + "set rating = " + mult.getRating()
-            +"where mixtapeid = " + mult.getMixtapeID();
+            insertString = "update linkedu.Multimedia "
+            + "set url = '" + mult.getUrl() + "' "
+            +"where studentid = " + mult.getStudentID();
             
             row = stmt.executeUpdate(insertString);
             System.out.println("Insert String: " + insertString);
@@ -147,7 +146,7 @@ public class MultimediaDAOImpl implements MultimediaDAO{
     public int addMultimedia(MultimediaModel mult) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         String insertString = "";
         

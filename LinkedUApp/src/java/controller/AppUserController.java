@@ -27,6 +27,8 @@ public class AppUserController
     private AppUserModel theModel;
     private StudentModel stu;
     private RecruiterModel rec;
+    private String un;
+    private String pw;
     public AppUserController()
     {
         theModel=new AppUserModel();
@@ -75,17 +77,14 @@ public class AppUserController
     public String login()
     {
         AppUserDAO apd = new AppUserDAOImpl();   
-        theModel = apd.getUserByUsername(theModel.getUsername());
+        theModel = apd.getUserByUsername(this.un);
         if(validate())
         {
-            //AppUserDAO apd=new AppUserDAOImpl();
-            //if(apd.getUserType(theModel.getUsername()).equals("student"))
-            stu = new StudentDAOImpl().getStudentByUsername(theModel.getUsername());
+
             if(theModel.getUserType().equalsIgnoreCase("Student"))
             {return "dashboard.xhtml";}
             else
             {return "dashboard-recruiter.xhtml";}
-            //return "dashboard.xhtml";
         }
         else
         {
@@ -97,7 +96,7 @@ public class AppUserController
     {
         AppUserDAO apd = new AppUserDAOImpl();
         //if(checkLoggedIn())
-        if(apd.validate(theModel.getUsername(), theModel.getPassword()))
+        if(apd.validate(this.un, this.pw))
         {
             /*if(apd.validate(theModel.getUsername(), theModel.getPassword()))
             {return true;}
@@ -107,7 +106,7 @@ public class AppUserController
         }
         else
         {
-            return true;
+            return false;
         }
     }
     
@@ -121,6 +120,34 @@ public class AppUserController
             return "dashboard.xhtml";
         else
             return "error.xhtml";
+    }
+
+    /**
+     * @return the un
+     */
+    public String getUn() {
+        return un;
+    }
+
+    /**
+     * @param un the un to set
+     */
+    public void setUn(String un) {
+        this.un = un;
+    }
+
+    /**
+     * @return the pw
+     */
+    public String getPw() {
+        return pw;
+    }
+
+    /**
+     * @param pw the pw to set
+     */
+    public void setPw(String pw) {
+        this.pw = pw;
     }
     
 }

@@ -23,10 +23,10 @@ public class StudentDAOImpl implements StudentDAO{
     public ArrayList<StudentModel> getAllStudents() {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
-        String query = "SELECT * FROM linkedu.Student";
+        String query = "SELECT * FROM linkedu.Student order by firstname";
         
         ArrayList<StudentModel> s = new ArrayList<StudentModel>();
         
@@ -102,7 +102,7 @@ public class StudentDAOImpl implements StudentDAO{
     public StudentModel getStudentByID(int id) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.Student where studentid = " +id;
@@ -178,7 +178,7 @@ public class StudentDAOImpl implements StudentDAO{
     public ArrayList<StudentModel> getStudentsWithGreaterGPA(double gpa) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.Student where gpa > " + gpa;
@@ -258,7 +258,7 @@ public class StudentDAOImpl implements StudentDAO{
     public int updateStudent(StudentModel stu){
         
          DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         String insertString = "";
         
@@ -267,22 +267,19 @@ public class StudentDAOImpl implements StudentDAO{
         try{
             Statement stmt = DBConn.createStatement();
             insertString = "update linkedu.Student "
-            + "set password = '" + stu.getPassword() + "', "
-            + "set email = '" + stu.getEmail() + "', "
             + "set firstname = '" + stu.getFirstName() + "', "
-            + "set lastname = '" + stu.getLastName() + "', "
-            + "set year =" + stu.getYear() + ", "
-            + "set highschool = '" + stu.getHighSchool() + "' ,"
-            + "set gpa = " + stu.getGpa() + ", "
-            + "set actscore = " + stu.getACT() + ", "
-            + "set satscore = " + stu.getSAT() + ", "
-            + "set psatscore = " + stu.getPSAT() +", "
-            + "set nmsqtscore = " + stu.getNMSQT() + ", "
-            + "set apcourse = '" + stu.getApCourse() + "', "
-            + "set essay = '" + stu.getEssay() + "', "
-            + "set universities = '" + stu.getUniversities() + "', "
-            + "set majors = '" + stu.getMajors() + "', "
-            + "set ispaidservice = " + stu.getIsPaidService()
+            + "lastname = '" + stu.getLastName() + "', "
+            + "classyear =" + stu.getYear() + ", "
+            + "highschool = '" + stu.getHighSchool() + "', "
+            + "gpa = " + stu.getGpa() + ", "
+            + "actscore = " + stu.getACT() + ", "
+            + "satscore = " + stu.getSAT() + ", "
+            + "psatscore = " + stu.getPSAT() +", "
+            + "nmsqtscore = " + stu.getNMSQT() + ", "
+            + "apcourse = '" + stu.getApCourse() + "', "
+            + "essay = '" + stu.getEssay() + "', "
+            + "universities = '" + stu.getUniversities() + "', "
+            + "majors = '" + stu.getMajors() + "' "
             +"where username = '" + stu.getUsername() + "'";
             
             row = stmt.executeUpdate(insertString);
@@ -301,7 +298,7 @@ public class StudentDAOImpl implements StudentDAO{
     public int addStudent(StudentModel stu) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
         String insertString = "";
         
@@ -347,7 +344,7 @@ public class StudentDAOImpl implements StudentDAO{
     public StudentModel getStudentByUsername(String un) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
         String query = "SELECT * FROM linkedu.Student where username = '" +un + "'";
@@ -424,10 +421,10 @@ public class StudentDAOImpl implements StudentDAO{
     public ArrayList<StudentModel> getStudentsByYear(int year) {
         
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
-        String query = "SELECT * FROM linkedu.Student where classyear = " + year;
+        String query = "SELECT * FROM linkedu.Student where classyear = " + year + " order by firstname";
         
         ArrayList<StudentModel> s = new ArrayList<StudentModel>();
         
@@ -503,10 +500,10 @@ public class StudentDAOImpl implements StudentDAO{
     public ArrayList<StudentModel> getStudentsGPARange(double lower, double higher) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
-        String query = "SELECT * FROM linkedu.Student where gpa between " + lower + " and " + higher;
+        String query = "SELECT * FROM linkedu.Student where gpa between " + lower + " and " + higher + " order by firstname";
         
         ArrayList<StudentModel> s = new ArrayList<StudentModel>();
         
@@ -582,10 +579,10 @@ public class StudentDAOImpl implements StudentDAO{
     public ArrayList<StudentModel> getStudentGPARangeAndYear(int inYear, double lower, double higher) {
 
         DBHelper.loadDriver("org.apache.derby.jdbc.ClientDriver");
-        String myDB = "jdbc:derby://localhost:1527/linkedu";
+        String myDB = "jdbc:derby://gfish2.it.ilstu.edu:1527/bmgrayb_fall14_linkedu;create=true";
         Connection DBConn = DBHelper.connect2DB(myDB, "itkstu", "student");
 
-        String query = "SELECT * FROM linkedu.Student where classyear = " + inYear + " and gpa between " + lower + " and " + higher;
+        String query = "SELECT * FROM linkedu.Student where classyear = " + inYear + " and gpa between " + lower + " and " + higher + " order by firstname";
         
         ArrayList<StudentModel> s = new ArrayList<StudentModel>();
         
